@@ -25,7 +25,7 @@ export default function ReportPage() {
     path.join(process.cwd(), "plasencia.md"),
     "utf-8"
   );
-  const md = stripSections(raw, ["Recommendations", "Caveats"]);
+  const md = stripSections(raw, ["Key Findings", "Recommendations", "Caveats"]);
 
   return (
     <article className="report">

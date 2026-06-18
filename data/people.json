@@ -1,0 +1,13 @@
+[
+  { "id": "plasencia", "name": "Antoni Plasència", "role": "Director General de Recerca i Innovació en Salut (DGRIS)", "query": "Antoni Plasència DGRIS Departament Salut Catalunya recerca innovació", "primary": true },
+  { "id": "pane", "name": "Olga Pané", "role": "Consellera de Salut", "query": "Olga Pané consellera Salut Catalunya" },
+  { "id": "esteve-fernandez", "name": "Esteve Fernández", "role": "Secretari de Salut Pública (ASPCAT)", "query": "Esteve Fernández Secretari Salut Pública Catalunya ASPCAT" },
+  { "id": "garcia-diaz", "name": "Alfredo García Díaz", "role": "Director del CatSalut", "query": "Alfredo García Díaz director CatSalut Servei Català Salut" },
+  { "id": "garcia-armesto", "name": "Sandra García-Armesto", "role": "Directora de AQuAS", "query": "Sandra García-Armesto AQuAS intel·ligència artificial salut" },
+  { "id": "fabregat", "name": "Robert Fabregat", "role": "Director General de Biocat", "query": "Robert Fabregat Biocat director general" },
+  { "id": "bassat", "name": "Quique Bassat", "role": "Director General de ISGlobal", "query": "Quique Bassat ISGlobal director general" },
+  { "id": "aina-plaza", "name": "Aina Plaza", "role": "Directora General de Planificació en Salut", "query": "Aina Plaza Directora General Planificació Salut Catalunya" },
+  { "id": "gomez-pallares", "name": "Joan Gómez Pallarès", "role": "Director General de Recerca (Recerca i Universitats)", "query": "Joan Gómez Pallarès director general Recerca Catalunya" },
+  { "id": "maspons", "name": "Ramon Maspons", "role": "Director de Innovació de AQuAS", "query": "Ramon Maspons AQuAS innovació salut" },
+  { "id": "ibeas", "name": "José Ibeas", "role": "Director del Programa Salut/IA", "query": "José Ibeas Programa Salut IA Catalunya" }
+]

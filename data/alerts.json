@@ -1,0 +1,82 @@
+{
+  "lastSweep": "2026-06-18",
+  "alerts": [
+    {
+      "id": "bassat-retreat-2026",
+      "date": "2026-03-19",
+      "approx": false,
+      "personId": "bassat",
+      "person": "Quique Bassat",
+      "title": "ISGlobal celebra su Scientific Retreat 2026 con foco en excelencia y equidad",
+      "source": "ISGlobal",
+      "url": "https://www.isglobal.org/en/-/scientific-retreat-2026-isglobal-research-excellence-equity",
+      "summary": "Cerca de 270 asistentes en el retiro científico anual. En la clausura, Bassat (sucesor de Plasència) subrayó la necesidad de mantener el compromiso con investigación de alta calidad e impacto real."
+    },
+    {
+      "id": "garcia-armesto-mwc-2026",
+      "date": "2026-03-04",
+      "approx": false,
+      "personId": "garcia-armesto",
+      "person": "Sandra García-Armesto",
+      "title": "AQuAS coorganiza el Health Procurement Ecosystem Gathering en el MWC",
+      "source": "MWC Barcelona / Govern",
+      "url": "https://govern.cat/salapremsa/notes-premsa/701902/sandra-garcia-aquas-la-coordinacio-clau-lavaluacio-tecnologies-salut-digital",
+      "summary": "Durante el Mobile World Congress, AQuAS explora la adopción responsable de IA en sistemas sanitarios públicos. García-Armesto insiste en que la coordinación es clave en la evaluación de tecnologías de salud digital."
+    },
+    {
+      "id": "bassat-somma-2026",
+      "date": "2026-01-14",
+      "approx": false,
+      "personId": "bassat",
+      "person": "Quique Bassat",
+      "title": "Bassat, nuevo miembro del Comité Ejecutivo de SOMMa",
+      "source": "ISGlobal / SOMMa",
+      "url": "https://www.isglobal.org/-/quique-bassat-nuevo-miembro-del-comite-ejecutivo-de-somma",
+      "summary": "Elegido para el Comité Ejecutivo de la alianza de centros Severo Ochoa y unidades María de Maeztu, reforzando la presencia de la investigación biomédica y de salud pública."
+    },
+    {
+      "id": "bassat-scientific-director-2026",
+      "date": "2026-01-01",
+      "approx": false,
+      "personId": "bassat",
+      "person": "Quique Bassat",
+      "title": "ISGlobal actualiza su modelo de dirección: Bassat asume también la dirección científica",
+      "source": "ISGlobal",
+      "url": "https://www.isglobal.org/en/-/isglobal-actualiza-su-modelo-de-direccion-para-reforzar-el-liderazgo-cientifico-e-institucional",
+      "summary": "Desde el 1 de enero de 2026, el director general Quique Bassat asume además el cargo de director científico; se crea una dirección adjunta a cargo de Judith Garcia-Aymerich."
+    },
+    {
+      "id": "pane-premios-sanitarias-2026",
+      "date": "2026-02-01",
+      "approx": true,
+      "personId": "pane",
+      "person": "Olga Pané",
+      "title": "La consellera Olga Pané, reconocida en los Premios Sanitarias 2026",
+      "source": "Redacción Médica",
+      "url": "https://www.redaccionmedica.com/autonomias/cataluna/consellera-salut-olga-pane-reconocida-premios-sanitarias-2026-6351",
+      "summary": "Reconocimiento a su liderazgo en sanidad. Su hoja de ruta prioriza la Atención Primaria, la transformación del modelo asistencial, la salud digital y las condiciones de los profesionales."
+    },
+    {
+      "id": "plasencia-centres-recerca-2026",
+      "date": "2026-02-01",
+      "approx": true,
+      "personId": "plasencia",
+      "person": "Antoni Plasència",
+      "title": "Los centros de investigación en salud fijan una hoja de ruta compartida para los próximos años",
+      "source": "Govern de Catalunya",
+      "url": "https://govern.cat/salapremsa/notes-premsa/713582/centres-recerca-salut-fixen-full-ruta-compartida-als-propers-anys",
+      "summary": "Jornada de coordinación de los 19 centros de investigación adscritos al Departament de Salut, eje del mandato de Plasència al frente de la DGRIS."
+    },
+    {
+      "id": "plasencia-idiap-2026",
+      "date": "2026-05-01",
+      "approx": true,
+      "personId": "plasencia",
+      "person": "Antoni Plasència",
+      "title": "La Jornada IDIAP 2026 pone en valor el papel de la investigación en atención primaria",
+      "source": "Institut Català de la Salut",
+      "url": "https://ics.gencat.cat/ca/Ciutadania/ap/catalunya-central/actualitat/idiapjgol-jornada",
+      "summary": "Acto del ecosistema de investigación catalán en el ámbito de la atención primaria, dentro de la agenda de recerca i innovació en salut."
+    }
+  ]
+}

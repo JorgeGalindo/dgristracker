@@ -25,7 +25,10 @@ export default function ReportPage() {
     path.join(process.cwd(), "plasencia.md"),
     "utf-8"
   );
-  const md = stripSections(raw, ["Key Findings", "Recommendations", "Caveats"]);
+  const md = stripSections(raw, ["Key Findings", "Recommendations", "Caveats"])
+    // Limpia referencias colgantes a la sección Caveats ya eliminada.
+    .replace(/\s*—\s*ver Caveats/gi, "")
+    .replace(/\s*\(ver Caveats\)/gi, "");
 
   return (
     <article className="report">

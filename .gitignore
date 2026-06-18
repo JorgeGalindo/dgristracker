@@ -5,3 +5,4 @@
 .vercel
 *.log
 .env*.local
+.env*

@@ -6,6 +6,8 @@ import { getAlerts } from "../../../lib/alerts.js";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
+const UA = "Mozilla/5.0 (compatible; DGRIS-Tracker/1.0)";
+
 const parser = new XMLParser({
   ignoreAttributes: false,
   attributeNamePrefix: "@_",
@@ -22,9 +24,7 @@ function isoDate(d) {
 
 function shortHash(str) {
   let h = 0;
-  for (let i = 0; i < str.length; i++) {
-    h = (h * 31 + str.charCodeAt(i)) | 0;
-  }
+  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) | 0;
   return Math.abs(h).toString(36).slice(0, 6);
 }
 
@@ -37,9 +37,53 @@ function splitTitle(raw, fallbackSource) {
   return { title: raw.trim(), source: fallbackSource || "" };
 }
 
+// Resuelve el enlace redirect de Google News (/rss/articles/CBMi...) a la URL
+// canónica del medio, vía el endpoint batchexecute. Si falla, devuelve el original.
+async function resolveUrl(link) {
+  try {
+    const m = link.match(/\/rss\/articles\/([^?]+)/);
+    if (!m) return link;
+    const art = m[1];
+    const page = await fetch(`https://news.google.com/rss/articles/${art}`, {
+      headers: { "user-agent": UA },
+      cache: "no-store",
+    }).then((r) => r.text());
+    const sig = page.match(/data-n-a-sg="([^"]+)"/)?.[1];
+    const ts = page.match(/data-n-a-ts="([^"]+)"/)?.[1];
+    if (!sig || !ts) return link;
+    const optsInner = ["X", "X", ["X", "X"], null, null, 1, 1, "US:en", null, 1, null, null, null, null, null, 0, 1];
+    const second = [optsInner, "X", "X", 1, [1, 1, 1], 1, 1, null, 0, 0, null, 0];
+    const innerReq = JSON.stringify(["garturlreq", second, art, Number(ts), sig]);
+    const freq = JSON.stringify([[["Fbv4je", innerReq, null, "generic"]]]);
+    const body = new URLSearchParams({ "f.req": freq }).toString();
+    const resp = await fetch(
+      "https://news.google.com/_/DotsSplashUi/data/batchexecute",
+      {
+        method: "POST",
+        headers: {
+          "user-agent": UA,
+          "content-type": "application/x-www-form-urlencoded;charset=UTF-8",
+        },
+        body,
+        cache: "no-store",
+      }
+    ).then((r) => r.text());
+    const rm = resp.match(/\[\\"garturlres\\",\\"(.*?)\\"/);
+    if (rm) {
+      return rm[1]
+        .replace(/\\u003d/gi, "=")
+        .replace(/\\u0026/gi, "&")
+        .replace(/\\\//g, "/");
+    }
+    return link;
+  } catch {
+    return link;
+  }
+}
+
 async function fetchPerson(person) {
   const res = await fetch(gnewsUrl(person.feed || `"${person.name}"`), {
-    headers: { "user-agent": "Mozilla/5.0 (DGRIS Tracker sweep)" },
+    headers: { "user-agent": UA },
     cache: "no-store",
   });
   if (!res.ok) return [];
@@ -57,7 +101,7 @@ async function fetchPerson(person) {
       person: person.name,
       title,
       source: source || "Google News",
-      url: String(it.link || ""),
+      glink: String(it.link || ""),
       pub,
     };
   });
@@ -69,27 +113,36 @@ async function runSweep() {
 
   const store = await getAlerts({ fresh: true });
   const existing = Array.isArray(store.alerts) ? store.alerts : [];
-  const seenUrls = new Set(existing.map((a) => a.url));
+  const existingUrls = new Set(existing.map((a) => a.url));
 
   const batches = await Promise.all(
     people.map((p) => fetchPerson(p).catch(() => []))
   );
 
+  // Candidatos: últimos 7 días, con titular y enlace.
+  const candidates = batches
+    .flat()
+    .filter((it) => it.glink && it.title && it.pub && it.pub >= cutoff);
+
+  // Resuelve URLs canónicas en paralelo.
+  const resolved = await Promise.all(
+    candidates.map(async (it) => ({ ...it, url: await resolveUrl(it.glink) }))
+  );
+
   const fresh = [];
-  for (const item of batches.flat()) {
-    if (!item.url || !item.title) continue;
-    if (!item.pub || item.pub < cutoff) continue;
-    if (seenUrls.has(item.url)) continue;
-    seenUrls.add(item.url);
+  const batchUrls = new Set();
+  for (const it of resolved) {
+    if (existingUrls.has(it.url) || batchUrls.has(it.url)) continue;
+    batchUrls.add(it.url);
     fresh.push({
-      id: `${item.personId}-${isoDate(item.pub)}-${shortHash(item.url)}`,
-      date: isoDate(item.pub),
+      id: `${it.personId}-${isoDate(it.pub)}-${shortHash(it.url)}`,
+      date: isoDate(it.pub),
       approx: false,
-      personId: item.personId,
-      person: item.person,
-      title: item.title,
-      source: item.source,
-      url: item.url,
+      personId: it.personId,
+      person: it.person,
+      title: it.title,
+      source: it.source,
+      url: it.url,
       summary: "",
     });
   }
@@ -112,14 +165,11 @@ async function runSweep() {
 function authorized(request) {
   const secret = process.env.CRON_SECRET;
   if (!secret) return false;
-  const header = request.headers.get("authorization");
-  return header === `Bearer ${secret}`;
+  return request.headers.get("authorization") === `Bearer ${secret}`;
 }
 
 export async function GET(request) {
-  if (!authorized(request)) {
-    return new Response("Unauthorized", { status: 401 });
-  }
+  if (!authorized(request)) return new Response("Unauthorized", { status: 401 });
   try {
     const result = await runSweep();
     return Response.json({ ok: true, ...result });

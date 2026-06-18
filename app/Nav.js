@@ -13,17 +13,14 @@ export default function Nav() {
           DGRIS&nbsp;TRACKER
         </Link>
         <div className="nav-links">
-          <Link
-            href="/"
-            className={`nav-link${path === "/" ? " active" : ""}`}
-          >
-            Informe
+          <Link href="/" className={`nav-link${path === "/" ? " active" : ""}`}>
+            Río de alertas
           </Link>
           <Link
-            href="/rio"
-            className={`nav-link${path === "/rio" ? " active" : ""}`}
+            href="/informe"
+            className={`nav-link${path === "/informe" ? " active" : ""}`}
           >
-            Río de alertas
+            Informe
           </Link>
         </div>
       </div>

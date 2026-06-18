@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import people from "../../data/people.json";
+import people from "../data/people.json";
 
 const peopleById = Object.fromEntries(people.map((p) => [p.id, p]));
 
@@ -81,9 +81,7 @@ export default function RioClient({ data }) {
                   {person?.role && <span className="role">· {person.role}</span>}
                 </div>
                 <h3 className="alert-title">{a.title}</h3>
-                {a.summary ? (
-                  <p className="alert-summary">{a.summary}</p>
-                ) : null}
+                {a.summary ? <p className="alert-summary">{a.summary}</p> : null}
                 <div className="alert-foot">
                   <span className="alert-source">{a.source}</span>
                   <a

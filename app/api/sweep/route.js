@@ -157,6 +157,7 @@ async function runSweep() {
     addRandomSuffix: false,
     contentType: "application/json",
     allowOverwrite: true,
+    cacheControlMaxAge: 60,
   });
 
   return { added: fresh.length, total: merged.alerts.length, lastSweep: merged.lastSweep };
